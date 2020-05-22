@@ -16,5 +16,5 @@ The application has been deployed on Heroku, you can find it [here](http://pokem
 | Screen GIF | Direct Link |
 |--- | :---: |
 | ![Stats Analysis](screenGIFs/stat-analysis.gif) | [Stats Analysis Tab](http://pokemon-go-datascience-app.herokuapp.com/pokemon-go-app/stats-analysis/)|
-|![Top Pokemon](https://github.com/kristokrugger/Pokemon-Go-App/tree/master/screenGIFs/top-pokemon.gif)|[Top Pokemon Tab](http://pokemon-go-datascience-app.herokuapp.com/pokemon-go-app/top-pokemon/)|
-|  ![Simiar Pokemon](https://github.com/kristokrugger/Pokemon-Go-App/tree/master/screenGIFs/similar-pokemon.gif)| [Simiar Pokemon Tab](http://pokemon-go-datascience-app.herokuapp.com/pokemon-go-app/similar-pokemon/) |
+|![Top Pokemon](screenGIFs/top-pokemon.gif)|[Top Pokemon Tab](http://pokemon-go-datascience-app.herokuapp.com/pokemon-go-app/top-pokemon/)|
+|  ![Simiar Pokemon](screenGIFs/similar-pokemon.gif)| [Simiar Pokemon Tab](http://pokemon-go-datascience-app.herokuapp.com/pokemon-go-app/similar-pokemon/) |
