@@ -7,6 +7,8 @@ import numpy as np
 
 import gower
 
+import prince
+
 from components import (ALL_STATS, BASIC_STATS, TYPES, 
 						GENS, DATA, BASE_COLS, OTHER, SIZE_COLS,
 						CATEGORICAL_COLS_GOWER, NUMERICAL_COLS_GOWER)
@@ -105,7 +107,8 @@ def plot_pareto_2d(types, generations):
 
 	fig = px.scatter(df, x="Max HP", y="Max CP", 
 							color="is_pareto",
-							hover_data=["Name"])
+							hover_name="Name",
+							hover_data=["Is Legendary"])
 
 	fig.update_layout(showlegend=False)
 	
@@ -122,7 +125,8 @@ def plot_pareto_3d(types, generations):
  						y="Defense", 
  						z="Stamina", 
  						color="is_pareto",
- 						hover_data=["Name"])
+ 						hover_name="Name",
+ 						hover_data=["Is Legendary"])
 
 	fig.update_traces(marker_size=4)
 
@@ -141,5 +145,50 @@ def get_similar_n(name, n=3):
 
 	return list(similar_imgs)
 
+def FAMD(num_components):
+	famd = prince.FAMD(n_components=num_components,
+						n_iter=3,
+						copy=True,
+						check_input=True,
+						engine='auto',
+						random_state=0)
 
+	df = DATA.fillna('None')
+	df_reduced = df[CATEGORICAL_COLS_GOWER+NUMERICAL_COLS_GOWER]
+
+	components = famd.fit(df_reduced).row_coordinates(df_reduced)
+	components = components.rename(columns={i : "Component "+str(i+1) for i in range(num_components)})
+
+	df = pd.concat([df, components], axis=1)
+
+	return df
+
+def plot_FAMD(num_components, color):
+	num_components = int(num_components)
+	df = FAMD(num_components)
+
+	if num_components == 2:
+		fig = px.scatter(df, x="Component 1", 
+					y="Component 2", 
+					hover_name='Name', 
+					color=color,
+					color_discrete_sequence=px.colors.diverging.Spectral_r,
+					hover_data=["Generation", "Type 1", "Type 2", "Is Legendary"])
+		fig.update_layout(scene=dict(xaxis_title='Component 1',
+                    	yaxis_title='Component 2'))
+
+	elif num_components == 3:
+		fig = px.scatter_3d(df, x="Component 1", 
+					y="Component 2",
+					z="Component 3", 
+					hover_name='Name', 
+					color=color,
+					color_discrete_sequence=px.colors.diverging.Spectral_r,
+					hover_data=["Generation", "Type 1", "Type 2", "Is Legendary"])
+		fig.update_layout(scene=dict(xaxis_title='Component 1',
+                    	yaxis_title='Component 2',
+                    	zaxis_title='Component 3'))
+		fig.update_traces(marker_size=4)
+
+	return fig
 

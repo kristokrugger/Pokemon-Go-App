@@ -31,7 +31,9 @@ from components import (ALL_STATS, DATA, TYPES,
 						get_types_dropdown_fr,
 						get_gens_dropdown_fr,
 						get_types_dropdown_km,
-						get_gens_dropdown_km)
+						get_gens_dropdown_km,
+                        get_famd_radio,
+                        get_famd_dropdown)
 
 
 
@@ -283,6 +285,7 @@ layout_top_pokemon =  html.Div([
             ], 
         className="row"),
 
+
         ], className="subpage")
     ], className="page")
 
@@ -321,6 +324,26 @@ layout_similar_pokemon =  html.Div([
               	],
             	className="nine columns")
             
+            ], 
+        className="row"),
+
+        html.Br([]),
+
+        html.Div([ 
+            html.Div([ 
+            html.Div([html.H6(["FAMD Controls"], 
+                className="gs-header gs-text-header padded")]),
+      
+            html.Div([get_famd_radio()]),
+            html.Div([get_famd_dropdown()])
+            ], 
+                className="three columns"),
+
+            html.Div([
+                html.Div([html.H6(["Factor Analysis of Mixed Data (FAMD)"], 
+                className="gs-header gs-text-header padded")]),
+                dcc.Graph(id='FAMD-plot', style={"visibility": "visible"})], 
+                className="nine columns")
             ], 
         className="row")
      

@@ -63,4 +63,4 @@ for js in external_js:
     app.scripts.append_script({"external_url": js})
 
 if __name__ == '__main__':
-    app.run_server(port=8050)
+    app.run_server(debug=True)

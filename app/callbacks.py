@@ -269,3 +269,11 @@ def update_similar_pokemon(name):
 
 	return img_urls
 
+@app.callback(
+	Output('FAMD-plot', 'figure'),
+    [Input('radio-famd', 'value'),
+   Input('famd-color', 'value')])
+def update_famd_plot(num_components, color):
+	fig = funcs.plot_FAMD(num_components, color)
+              									
+	return fig

@@ -14,6 +14,8 @@ plotly = "*"
 gunicorn = "*"
 flask = "*"
 gower = "*"
+prince = "*"
+selenium = "*"
 
 [requires]
 python_version = "3.7"

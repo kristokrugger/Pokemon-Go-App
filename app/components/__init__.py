@@ -28,4 +28,6 @@ from .layout_components import (DATA, BASE_COLS, BASIC_STATS,
 								get_types_dropdown_fr,
 								get_gens_dropdown_fr,
 								get_types_dropdown_km,
-								get_gens_dropdown_km)
+								get_gens_dropdown_km,
+								get_famd_radio,
+								get_famd_dropdown)
