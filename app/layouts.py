@@ -33,7 +33,9 @@ from components import (ALL_STATS, DATA, TYPES,
 						get_types_dropdown_km,
 						get_gens_dropdown_km,
                         get_famd_radio,
-                        get_famd_dropdown)
+                        get_famd_dropdown,
+                        get_mds_radio,
+                        get_mds_dropdown)
 
 
 
@@ -343,6 +345,26 @@ layout_similar_pokemon =  html.Div([
                 html.Div([html.H6(["Factor Analysis of Mixed Data (FAMD)"], 
                 className="gs-header gs-text-header padded")]),
                 dcc.Graph(id='FAMD-plot', style={"visibility": "visible"})], 
+                className="nine columns")
+            ], 
+        className="row"),
+
+        html.Br([]),
+
+        html.Div([ 
+            html.Div([ 
+            html.Div([html.H6(["MDS Controls"], 
+                className="gs-header gs-text-header padded")]),
+      
+            html.Div([get_mds_radio()]),
+            html.Div([get_mds_dropdown()])
+            ], 
+                className="three columns"),
+
+            html.Div([
+                html.Div([html.H6(["Nonmetric Multi-dimensional Scaling (MDS)"], 
+                className="gs-header gs-text-header padded")]),
+                dcc.Graph(id='MDS-plot', style={"visibility": "visible"})], 
                 className="nine columns")
             ], 
         className="row")

@@ -9,6 +9,8 @@ import gower
 
 import prince
 
+from sklearn import manifold
+
 from components import (ALL_STATS, BASIC_STATS, TYPES, 
 						GENS, DATA, BASE_COLS, OTHER, SIZE_COLS,
 						CATEGORICAL_COLS_GOWER, NUMERICAL_COLS_GOWER)
@@ -163,9 +165,23 @@ def FAMD(num_components):
 
 	return df
 
-def plot_FAMD(num_components, color):
+def MDS(num_components):
+	df = DATA.fillna('None')
+	df_reduced = df[CATEGORICAL_COLS_GOWER+NUMERICAL_COLS_GOWER]
+
+	mds = manifold.MDS(n_components=num_components,
+							dissimilarity='precomputed')
+
+	components = mds.fit_transform(gower.gower_matrix(df_reduced))
+	components = pd.DataFrame(components).rename(columns={i : "Component "+str(i+1) for i in range(num_components)})
+
+	df = pd.concat([df, components], axis=1)
+
+	return df
+
+def plot_components(method, num_components, color):
 	num_components = int(num_components)
-	df = FAMD(num_components)
+	df = FAMD(num_components) if method == "FAMD" else MDS(num_components)
 
 	if num_components == 2:
 		fig = px.scatter(df, x="Component 1", 
@@ -191,4 +207,6 @@ def plot_FAMD(num_components, color):
 		fig.update_traces(marker_size=4)
 
 	return fig
+
+
 

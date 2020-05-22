@@ -406,3 +406,22 @@ def get_famd_dropdown():
                                  value="Is Legendary")
    return html.Div([dropdown])
 
+def get_mds_radio():
+   radio = drc.NamedRadioItems(name="Number of Components",
+                        id="radio-mds",
+                        options=[{"label":i, "value":i} for i in ["2", "3"]],
+                                 value="2")
+   return radio
+
+def get_mds_dropdown():
+   dropdown = drc.NamedDropdown(name="Color Based on",
+                                 id="mds-color",
+                                 options=[ 
+                                       {"label":val, "value":val} for val in 
+                                             CATEGORICAL_COLS_GOWER
+                                    ],
+                                 clearable=False,
+                                 searchable=False,
+                                 value="Is Legendary")
+   return html.Div([dropdown])
+

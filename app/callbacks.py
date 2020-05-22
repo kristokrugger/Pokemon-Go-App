@@ -274,6 +274,17 @@ def update_similar_pokemon(name):
     [Input('radio-famd', 'value'),
    Input('famd-color', 'value')])
 def update_famd_plot(num_components, color):
-	fig = funcs.plot_FAMD(num_components, color)
+	fig = funcs.plot_components("FAMD", num_components, color)
               									
 	return fig
+
+@app.callback(
+	Output('MDS-plot', 'figure'),
+    [Input('radio-mds', 'value'),
+   Input('mds-color', 'value')])
+def update_mds_plot(num_components, color):
+	fig = funcs.plot_components("MDS", num_components, color)
+              									
+	return fig
+
+
