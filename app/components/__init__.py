@@ -32,4 +32,6 @@ from .layout_components import (DATA, BASE_COLS, BASIC_STATS,
 								get_famd_radio,
 								get_famd_dropdown,
 								get_mds_radio,
-								get_mds_dropdown)
+								get_mds_dropdown,
+								get_tsne_radio,
+								get_tsne_dropdown)

@@ -35,7 +35,9 @@ from components import (ALL_STATS, DATA, TYPES,
                         get_famd_radio,
                         get_famd_dropdown,
                         get_mds_radio,
-                        get_mds_dropdown)
+                        get_mds_dropdown,
+                        get_tsne_radio,
+                        get_tsne_dropdown)
 
 
 
@@ -328,9 +330,7 @@ layout_similar_pokemon =  html.Div([
             
             ], 
         className="row"),
-
-        html.Br([]),
-
+        
         html.Div([ 
             html.Div([ 
             html.Div([html.H6(["FAMD Controls"], 
@@ -349,7 +349,23 @@ layout_similar_pokemon =  html.Div([
             ], 
         className="row"),
 
-        html.Br([]),
+        html.Div([ 
+            html.Div([ 
+            html.Div([html.H6(["t-SNE Controls"], 
+                className="gs-header gs-text-header padded")]),
+      
+            html.Div([get_tsne_radio()]),
+            html.Div([get_tsne_dropdown()])
+            ], 
+                className="three columns"),
+
+            html.Div([
+                html.Div([html.H6(["t-distributed Stochastic Neighbor Embedding (t-SNE) Based on Gower Distance"], 
+                className="gs-header gs-text-header padded")]),
+                dcc.Graph(id='TSNE-plot', style={"visibility": "visible"})], 
+                className="nine columns")
+            ], 
+        className="row"),
 
         html.Div([ 
             html.Div([ 
@@ -362,7 +378,7 @@ layout_similar_pokemon =  html.Div([
                 className="three columns"),
 
             html.Div([
-                html.Div([html.H6(["Nonmetric Multi-dimensional Scaling (MDS)"], 
+                html.Div([html.H6(["Nonmetric Multi-dimensional Scaling (MDS) Based on Gower Distance"], 
                 className="gs-header gs-text-header padded")]),
                 dcc.Graph(id='MDS-plot', style={"visibility": "visible"})], 
                 className="nine columns")

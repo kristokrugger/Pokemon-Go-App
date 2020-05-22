@@ -279,6 +279,15 @@ def update_famd_plot(num_components, color):
 	return fig
 
 @app.callback(
+	Output('TSNE-plot', 'figure'),
+    [Input('radio-tsne', 'value'),
+   Input('tsne-color', 'value')])
+def update_mds_plot(num_components, color):
+	fig = funcs.plot_components("TSNE", num_components, color)
+              									
+	return fig
+
+@app.callback(
 	Output('MDS-plot', 'figure'),
     [Input('radio-mds', 'value'),
    Input('mds-color', 'value')])

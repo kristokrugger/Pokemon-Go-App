@@ -15,6 +15,8 @@ from components import (ALL_STATS, BASIC_STATS, TYPES,
 						GENS, DATA, BASE_COLS, OTHER, SIZE_COLS,
 						CATEGORICAL_COLS_GOWER, NUMERICAL_COLS_GOWER)
 
+GOWER_MATRIX = gower.gower_matrix(DATA.fillna('None')[CATEGORICAL_COLS_GOWER+NUMERICAL_COLS_GOWER])
+
 
 def update_stats_scatter(stats, types, generations, yaxis):
 	labels = BASE_COLS + stats + OTHER
@@ -165,23 +167,41 @@ def FAMD(num_components):
 
 	return df
 
-def MDS(num_components):
+def TSNE(num_components):
 	df = DATA.fillna('None')
-	df_reduced = df[CATEGORICAL_COLS_GOWER+NUMERICAL_COLS_GOWER]
 
-	mds = manifold.MDS(n_components=num_components,
-							dissimilarity='precomputed')
+	tsne = manifold.TSNE(n_components=num_components,
+							metric='precomputed')
 
-	components = mds.fit_transform(gower.gower_matrix(df_reduced))
+	components = tsne.fit_transform(GOWER_MATRIX)
 	components = pd.DataFrame(components).rename(columns={i : "Component "+str(i+1) for i in range(num_components)})
 
 	df = pd.concat([df, components], axis=1)
 
 	return df
 
+def MDS(num_components):
+	df = DATA.fillna('None')
+
+	mds = manifold.MDS(n_components=num_components,
+							dissimilarity='precomputed')
+
+	components = mds.fit_transform(GOWER_MATRIX)
+	components = pd.DataFrame(components).rename(columns={i : "Component "+str(i+1) for i in range(num_components)})
+
+	df = pd.concat([df, components], axis=1)
+
+	return df
+
+
 def plot_components(method, num_components, color):
 	num_components = int(num_components)
-	df = FAMD(num_components) if method == "FAMD" else MDS(num_components)
+	if method == "FAMD":
+		df = FAMD(num_components)
+	elif method == "MDS":
+		df = MDS(num_components)
+	else:
+		df = TSNE(num_components)
 
 	if num_components == 2:
 		fig = px.scatter(df, x="Component 1", 
