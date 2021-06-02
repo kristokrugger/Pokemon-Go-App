@@ -34,5 +34,5 @@ selenium==3.141.0
 six==1.15.0
 statsmodels==0.11.1
 threadpoolctl==2.0.0
-urllib3==1.25.9
+urllib3==1.26.5
 werkzeug==1.0.1
